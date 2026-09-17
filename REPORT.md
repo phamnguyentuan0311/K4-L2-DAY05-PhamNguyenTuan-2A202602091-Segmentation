@@ -14,7 +14,7 @@ Ghi tên ZIP đúng như file trong `submissions/` và số ảnh đã vẽ, Sav
 
 | Task | File ZIP đúng tên | Hoàn thành mấy ảnh | Điểm tối đa (coach chấm sau) |
 | --- | --- | ---: | ---: |
-| easy_semantic | easy_semantic.zip | 3 / 3 | 20 |
+| easy_semantic | easy_semantic.zip | Lỗi format / 3 | 20 |
 | medium_instance | medium_instance.zip | 3 / 3 | 32 |
 | hard_panoptic | hard_panoptic.zip | 2 / 2 | 30 |
 | cp1_holes | chưa có | 0 / 1 | 3 |
@@ -26,6 +26,7 @@ Ghi tên ZIP đúng như file trong `submissions/` và số ảnh đã vẽ, Sav
 | **Tổng tối đa** | | | **100** |
 
 Nếu export lỗi, ghi task, dữ liệu đã Save đến đâu và lỗi đã báo coach.
+Lỗi hiện tại: Task `easy_semantic` bị lỗi export do xuất sai format (thiếu thư mục SegmentationClass và file PNG). Cần xuất lại theo chuẩn "Segmentation mask 1.1".
 
 ## 2. Một quyết định trước khi dùng gợi ý
 
@@ -40,11 +41,11 @@ Chọn object đầu tiên bạn tự vẽ ở `medium_instance`, trước khi x
 
 Chọn một lỗi **có thật** trong bài. Nếu công cụ lỗi khiến bạn chưa sửa được, ghi rõ đã thử gì và cần coach hỗ trợ gì; không ghi “đã sửa” khi chưa sửa.
 
-- Task/ảnh/vùng: Task `easy_semantic`, ảnh 2, vùng bầu trời và tán cây ở góc trên bên phải.
-- Lỗi thuộc loại: sai lớp / thiếu-thừa vật / gộp-tách / biên / phủ vùng / khác: Lỗi gộp vùng (gộp nhầm tán cây vào bầu trời).
-- Bằng chứng tôi nhìn thấy: Tán cây nhỏ bị phủ nhầm màu của class `sky`.
-- Quy tắc và hành động sửa: Quy tắc: các vật thể khác nhau phải thuộc các class riêng. Hành động sửa: dùng brush/polygon để tách phần tán cây ra khỏi lớp `sky` và gán lại thành lớp `tree`.
-- Sau sửa đã Save và export lại chưa? Đã Save và export đè lại file `easy_semantic.zip`.
+- Task/ảnh/vùng: Task `easy_semantic` (lỗi khi export toàn bộ task).
+- Lỗi thuộc loại: sai lớp / thiếu-thừa vật / gộp-tách / biên / phủ vùng / khác: Lỗi khác (Lỗi cấu trúc/định dạng file ZIP khi export).
+- Bằng chứng tôi nhìn thấy: Khi chạy script tự kiểm tra, hệ thống báo `[LỖI] easy_semantic: easy_semantic.zip ! không có PNG trong SegmentationClass/; kiểm format Segmentation mask 1.1`.
+- Quy tắc và hành động sửa: Quy tắc: Cần chọn đúng định dạng "Segmentation mask 1.1" khi export cho task semantic trên CVAT. Hành động sửa: Cần quay lại CVAT, bấm Export task và chọn đúng định dạng "Segmentation mask 1.1".
+- Sau sửa đã Save và export lại chưa? Tạm thời chưa xuất lại thành công, ghi nhận lỗi để báo lại.
 
 Nếu bạn **đã xem Summary tự đánh giá trên GitHub Actions hoặc tự chạy script**, ghi ngắn một kết quả liên quan lỗi vừa sửa (ví dụ task, metric trước/sau nếu có): File ZIP đã được action báo PASS kiểm tra cấu trúc, chưa có điểm cụ thể do chờ ground truth. Scorecard ba tier tối đa **82**, không phải điểm cuối trên 100. Không tự ghi PASS/top 3/bonus; người phụ trách xác nhận theo tiêu chí lớp. Không đưa file ground truth vào fork.
 
